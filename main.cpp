@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <thread>
 #include <chrono>
+#include <conio.h>
 using namespace std;
 
 // hàm in màu cho chữ
@@ -11,6 +12,11 @@ void printColoredText(int textColor)
     SetConsoleTextAttribute(h, textColor);
 }
 
+// hàm tạm thời dừng code
+void tamThoiDungCode(int miliseconds)
+{
+    this_thread::sleep_for(chrono::milliseconds(miliseconds));
+}
 // hàm đăng nhập
 void dangNhap(string inpPW, string inpUSN)
 {
@@ -33,10 +39,10 @@ void dangNhap(string inpPW, string inpUSN)
         cout << " NHAP MAT KHAU: ";
         cin >> inpPW;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
         cout << " ===== DANG DANG NHAP... =====" << endl;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
 
         // kiểm tra thông tin đăng nhập
         if (inpUSN == validUSN && inpPW == validPW)
@@ -45,7 +51,14 @@ void dangNhap(string inpPW, string inpUSN)
             cout << " ===== DANG NHAP THANH CONG! CHAO MUNG QUAY TRO LAI " << validUSN << "! =====" << endl;
             cout << endl;
             dangNhapThanhCong = true;
-            this_thread::sleep_for(chrono::milliseconds(500));
+            tamThoiDungCode(500);
+            printColoredText(6); // in chữ màu vàng
+            cout << " ===== BAM BAT KI PHIM NAO DE THOAT =====" << endl;
+            cout << endl;
+            getch();
+            cout << " ===== DANG THOAT CHUONG TRINH... =====" << endl;
+            cout << endl;
+            tamThoiDungCode(500);
         }
         else
         {                        // nếu sai
@@ -83,16 +96,23 @@ void dangNhapTKMoi(string vUSN, string vPW)
         cout << " NHAP MAT KHAU: ";
         cin >> inpPW;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
         cout << " ===== DANG DANG NHAP... =====" << endl;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
 
         // kiểm tra thông tin vừa nhập
         if (inpUSN == vUSN && inpPW == vPW)
         {                        // nếu đúng hết
             printColoredText(2); // in chữ màu xanh lá
             cout << " ===== DANG NHAP THANH CONG! CHAO MUNG " << vUSN << "! =====" << endl;
+            cout << endl;
+            tamThoiDungCode(500);
+            printColoredText(6); // in chữ màu vàng
+            cout << " ===== BAM BAT KI PHIM NAO DE THOAT =====" << endl;
+            cout << endl;
+            getch();
+            cout << " ===== DANG THOAT CHUONG TRINH... =====" << endl;
             cout << endl;
             dangNhapThanhCong = true;
         }
@@ -113,6 +133,7 @@ void dangNhapTKMoi(string vUSN, string vPW)
         }
     }
 }
+
 // hàm đăng ký tài khoản
 void dangKy(string nPW, string nUSN, string cPW)
 {
@@ -134,10 +155,10 @@ void dangKy(string nPW, string nUSN, string cPW)
         cout << " XAC NHAN LAI MAT KHAU: ";
         cin >> cPW;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
         cout << " ===== DANG TAO TAI KHOAN... =====" << endl;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
 
         // kiểm tra mật khẩu đã xác nhận
         if (nPW == cPW)
@@ -145,7 +166,7 @@ void dangKy(string nPW, string nUSN, string cPW)
             printColoredText(2); // in chữ màu xanh lá
             cout << " ===== DANG KY TAI KHOAN THANH CONG! VUI LONG DANG NHAP DE TIEP TUC =====" << endl;
             cout << endl;
-            this_thread::sleep_for(chrono::milliseconds(500));
+            tamThoiDungCode(500);
             dangNhapTKMoi(nUSN, nPW);
             dangKyThanhCong = true;
         }
@@ -168,13 +189,13 @@ int main()
         printColoredText(9); // in chữ màu xanh dương nhạt
 
         // màn hình lựa chọn
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
         cout << endl;
         cout << " |     NHAN PHIM 1: DANG NHAP             |" << endl;
         cout << " |     NHAN PHIM 2: DANG KY TAI KHOAN     |" << endl;
         cout << " |     NHAN PHIM 3: THOAT                 |" << endl;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
         cout << " ===== VUI LONG NHAP LUA CHON THONG QUA CAC PHIM SO =====" << endl;
         cout << endl;
         cout << " NHAP LUA CHON TAI DAY: ";
@@ -182,7 +203,7 @@ int main()
         // nhập lựa chọn
         cin >> luaChon;
         cout << endl;
-        this_thread::sleep_for(chrono::milliseconds(500));
+        tamThoiDungCode(500);
 
         // kiểm tra lựa chọn
         switch (luaChon)
@@ -191,21 +212,24 @@ int main()
             nhapDungLuaChon = true;
             cout << " ===== BAN DA CHON DANG NHAP =====" << endl;
             cout << endl;
-            this_thread::sleep_for(chrono::milliseconds(500));
+            tamThoiDungCode(500);
             dangNhap(inpPW, inpUSN);
             break;
         case '2':
             nhapDungLuaChon = true;
             cout << " ===== BAN DA CHON DANG KY TAI KHOAN =====" << endl;
             cout << endl;
-            this_thread::sleep_for(chrono::milliseconds(500));
+            tamThoiDungCode(500);
             dangKy(nPW, nUSN, cPW);
             break;
         case '3':
             printColoredText(6); // in chữ màu vàng
             nhapDungLuaChon = true;
+            cout << " ===== BAM BAT KI PHIM NAO DE THOAT =====" << endl;
+            cout << endl;
+            getch();
             cout << " ===== DANG THOAT CHUONG TRINH... =====" << endl;
-            this_thread::sleep_for(chrono::milliseconds(500));
+            tamThoiDungCode(500);
             cout << endl;
             break;
         default:
